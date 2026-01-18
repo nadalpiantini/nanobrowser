@@ -1014,7 +1014,12 @@ const SidePanel = () => {
                 {t('nav_back')}
               </button>
             ) : (
-              <img src="/icon-128.png" alt="Extension Logo" className="size-6" />
+              <>
+                <img src="/icon-128.png" alt="WebPilot Logo" className="size-6 mr-2" />
+                <span className={`font-bold ${isDarkMode ? 'text-sky-300' : 'text-sky-700'} hidden md:inline`}>
+                  WebPilot
+                </span>
+              </>
             )}
           </div>
           <div className="header-icons">
@@ -1087,7 +1092,7 @@ const SidePanel = () => {
               <div
                 className={`flex flex-1 items-center justify-center p-8 ${isDarkMode ? 'text-sky-300' : 'text-sky-600'}`}>
                 <div className="max-w-md text-center">
-                  <img src="/icon-128.png" alt="Nanobrowser Logo" className="mx-auto mb-4 size-12" />
+                  <img src="/icon-128.png" alt="WebPilot Logo" className="mx-auto mb-4 size-12" />
                   <h3 className={`mb-2 text-lg font-semibold ${isDarkMode ? 'text-sky-200' : 'text-sky-700'}`}>
                     {t('welcome_title')}
                   </h3>
@@ -1101,7 +1106,7 @@ const SidePanel = () => {
                   </button>
                   <div className="mt-4 text-sm opacity-75">
                     <a
-                      href="https://github.com/nanobrowser/nanobrowser?tab=readme-ov-file#-quick-start"
+                      href="https://github.com/anthropics/webpilot?tab=readme-ov-file#-quick-start"
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`${isDarkMode ? 'text-sky-400 hover:text-sky-300' : 'text-sky-700 hover:text-sky-600'}`}>
