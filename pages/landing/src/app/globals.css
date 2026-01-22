@@ -10,10 +10,6 @@
     --miami-night: #0A0E27;
   }
 
-  * {
-    @apply border-border;
-  }
-
   body {
     @apply bg-miami-night text-white font-display;
     background-image:
