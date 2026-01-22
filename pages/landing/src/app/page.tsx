@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function Home() {
   return (
     <main className="min-h-screen relative overflow-hidden">
@@ -6,50 +8,25 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-4">
-        {/* Logo 10x - Giant Center */}
+        {/* Freejack Logo - Giant Center */}
         <div className="relative mb-12 animate-float">
-          <div className="absolute inset-0 bg-gradient-to-r from-neon-pink via-neon-cyan to-neon-purple blur-3xl opacity-30 animate-pulse" />
-          <svg
-            className="relative w-64 h-64 md:w-96 md:h-96 lg:w-[32rem] lg:h-[32rem]"
-            viewBox="0 0 200 200"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            {/* 10x Logo - Modern geometric design */}
-            <g className="animate-glow">
-              {/* "10" */}
-              <text
-                x="30"
-                y="120"
-                fontSize="100"
-                fontWeight="900"
-                fill="url(#gradient1)"
-                fontFamily="SF Pro Display, system-ui">
-                10
-              </text>
-              {/* "X" */}
-              <text
-                x="145"
-                y="120"
-                fontSize="100"
-                fontWeight="900"
-                fill="url(#gradient2)"
-                fontFamily="SF Pro Display, system-ui">
-                x
-              </text>
-            </g>
+          {/* Neon glow effect behind logo */}
+          <div className="absolute inset-0 bg-gradient-to-r from-neon-pink via-neon-cyan to-neon-purple blur-3xl opacity-40 animate-pulse" />
 
-            {/* Gradients */}
-            <defs>
-              <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#FF10F0" />
-                <stop offset="100%" stopColor="#00F0FF" />
-              </linearGradient>
-              <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#00F0FF" />
-                <stop offset="100%" stopColor="#FFF000" />
-              </linearGradient>
-            </defs>
-          </svg>
+          {/* Main logo */}
+          <div className="relative w-64 h-64 md:w-96 md:h-96 lg:w-[32rem] lg:h-[32rem]">
+            <Image
+              src="/freejack_logo.png"
+              alt="Freejack Logo"
+              width={512}
+              height={512}
+              priority
+              className="w-full h-full object-contain drop-shadow-[0_0_50px_rgba(255,16,240,0.5)]"
+            />
+
+            {/* Additional glow overlay for extra Miami vibes */}
+            <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan/20 via-transparent to-neon-pink/20 mix-blend-overlay pointer-events-none" />
+          </div>
         </div>
 
         {/* Hero Copy - Agulla & Baccetti style */}
