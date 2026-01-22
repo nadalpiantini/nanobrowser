@@ -10,9 +10,6 @@ export default function Home() {
       <section className="relative min-h-screen flex flex-col items-center justify-center px-4">
         {/* Freejack Logo - Giant Center */}
         <div className="relative mb-12">
-          {/* Neon glow effect behind logo */}
-          <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-crimson blur-3xl opacity-40" />
-
           {/* Main logo */}
           <div className="relative w-64 h-64 md:w-96 md:h-96 lg:w-[32rem] lg:h-[32rem]">
             <Image
@@ -21,7 +18,7 @@ export default function Home() {
               width={512}
               height={512}
               priority
-              className="w-full h-full object-contain drop-shadow-[0_0_50px_rgba(233,30,140,0.5)]"
+              className="w-full h-full object-contain"
             />
           </div>
         </div>
