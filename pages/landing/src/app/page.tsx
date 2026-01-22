@@ -58,20 +58,93 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section - Minimal */}
-      <section className="relative py-32 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { title: 'Think', desc: 'Plans your workflow' },
-              { title: 'Navigate', desc: 'Executes with precision' },
-              { title: 'Deliver', desc: 'Gets it done' },
-            ].map((feature, i) => (
-              <div key={i} className="glass-morphism p-8 rounded-2xl hover:scale-105 transition-transform">
-                <h3 className="text-2xl font-bold mb-4 text-glow text-neon-cyan">{feature.title}</h3>
-                <p className="text-gray-400">{feature.desc}</p>
+      {/* Features Section - Simplified */}
+      <section className="relative py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          {/* Section Title */}
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-crimson">
+            FreeJack Features
+          </h2>
+
+          {/* Features Grid - 3 Steps */}
+          <div className="grid md:grid-cols-3 gap-12 mb-20">
+            {/* Step 1 */}
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 mx-auto rounded-full border-2 border-neon-cyan flex items-center justify-center">
+                <svg className="w-10 h-10 text-neon-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
               </div>
-            ))}
+              <h3 className="text-xl font-bold text-white">Install Extension</h3>
+              <p className="text-gray-400 text-sm">Add FreeJack to Chrome with one click.</p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 mx-auto rounded-full border-2 border-neon-magenta flex items-center justify-center">
+                <svg className="w-10 h-10 text-neon-magenta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-white">Configure Model</h3>
+              <p className="text-gray-400 text-sm">Choose your preferred AI model or use our free tier.</p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 mx-auto rounded-full border-2 border-neon-crimson flex items-center justify-center">
+                <svg className="w-10 h-10 text-neon-crimson" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-white">Automate</h3>
+              <p className="text-gray-400 text-sm">Describe what you want to do in plain English.</p>
+            </div>
+          </div>
+
+          {/* Additional Features */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            {/* Cost Effective */}
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-full border-2 border-neon-cyan flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-neon-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h4 className="text-lg font-bold text-white mb-1">Cost Effective</h4>
+                <p className="text-gray-400 text-sm">Generous free tier and transparent pricing.</p>
+              </div>
+            </div>
+
+            {/* Get Started Quickly */}
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-full border-2 border-neon-magenta flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-neon-magenta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <div>
+                <h4 className="text-lg font-bold text-white mb-1">Get Started Quickly</h4>
+                <p className="text-gray-400 text-sm">Three simple steps to automate web tasks.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
