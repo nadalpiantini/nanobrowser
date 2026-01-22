@@ -9,9 +9,9 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-4">
         {/* Freejack Logo - Giant Center */}
-        <div className="relative mb-12 animate-float">
+        <div className="relative mb-12">
           {/* Neon glow effect behind logo */}
-          <div className="absolute inset-0 bg-gradient-to-r from-neon-pink via-neon-cyan to-neon-purple blur-3xl opacity-40 animate-pulse" />
+          <div className="absolute inset-0 bg-gradient-to-r from-neon-pink via-neon-cyan to-neon-purple blur-3xl opacity-40" />
 
           {/* Main logo */}
           <div className="relative w-64 h-64 md:w-96 md:h-96 lg:w-[32rem] lg:h-[32rem]">
@@ -23,25 +23,16 @@ export default function Home() {
               priority
               className="w-full h-full object-contain drop-shadow-[0_0_50px_rgba(255,16,240,0.5)]"
             />
-
-            {/* Additional glow overlay for extra Miami vibes */}
-            <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan/20 via-transparent to-neon-pink/20 mix-blend-overlay pointer-events-none" />
           </div>
         </div>
 
         {/* Hero Copy - Agulla & Baccetti style */}
         <div className="text-center space-y-6 max-w-3xl">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-neon-pink via-neon-cyan to-neon-purple">
-              Freejack
-            </span>
-          </h1>
-
           <p className="text-xl md:text-2xl lg:text-3xl text-gray-300 font-light tracking-wide">
             The web is yours now.
           </p>
 
-          <div className="pt-8">
+          <div className="pt-4">
             <p className="text-sm md:text-base text-gray-400 font-mono uppercase tracking-widest">AI Web Agent</p>
           </div>
         </div>

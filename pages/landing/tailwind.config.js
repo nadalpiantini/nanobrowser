@@ -17,7 +17,7 @@ export default {
           orange: '#FF6B35',
         },
         miami: {
-          night: '#0A0E27',
+          night: '#1e293b', // Same as side panel (slate-800)
           dark: '#1A1F3A',
           grid: '#2A2F4A',
         },
