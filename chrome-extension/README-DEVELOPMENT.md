@@ -1,8 +1,8 @@
-# WebPilot Chrome Extension - Modo Desarrollo & Debug
+# Freejack Chrome Extension - Modo Desarrollo & Debug
 
 ## Introducción
 
-Este documento explica cómo iniciar y usar el modo de desarrollo y debug para la extensión de Chrome WebPilot. Aunque no hay un "Ralph mode" específico en el código, esta guía te ayudará a configurar y usar las capacidades de desarrollo y debug integradas en el proyecto.
+Este documento explica cómo iniciar y usar el modo de desarrollo y debug para la extensión de Chrome Freejack. Aunque no hay un "Ralph mode" específico en el código, esta guía te ayudará a configurar y usar las capacidades de desarrollo y debug integradas en el proyecto.
 
 ## Modo Desarrollo
 

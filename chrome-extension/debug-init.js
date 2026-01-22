@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-console.log('🔍 Inicializando modo de desarrollo para WebPilot Chrome Extension...');
+console.log('🔍 Inicializando modo de desarrollo para Freejack Chrome Extension...');
 
 // Configurar variables de entorno para desarrollo
 process.env.__DEV__ = 'true';

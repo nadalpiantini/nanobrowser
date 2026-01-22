@@ -1,18 +1,18 @@
-# Pruebas E2E con CrewAI y WebPilot Chrome Extension
+# Pruebas E2E con CrewAI y Freejack Chrome Extension
 
 ## Descripción
 
-Este conjunto de archivos demuestra cómo integrar CrewAI con la extensión WebPilot Chrome Extension para realizar pruebas de extremo a extremo (E2E). La arquitectura de agentes de WebPilot es compatible con el framework de CrewAI, permitiendo crear crews que coordinen tareas complejas de navegación web.
+Este conjunto de archivos demuestra cómo integrar CrewAI con la extensión Freejack Chrome Extension para realizar pruebas de extremo a extremo (E2E). La arquitectura de agentes de Freejack es compatible con el framework de CrewAI, permitiendo crear crews que coordinen tareas complejas de navegación web.
 
 ## Componentes
 
 ### 1. Integración con CrewAI
-- **webpilot_crew_example.py**: Ejemplo básico de cómo usar WebPilot como herramienta en CrewAI
+- **freejack_crew_example.py**: Ejemplo básico de cómo usar Freejack como herramienta en CrewAI
 - **e2e_test_scenarios.py**: Escenarios de prueba E2E específicos para validar funcionalidades
 
 ### 2. Herramientas Simuladas
-- **webpilot_browser_tool**: Simula la interacción con la extensión WebPilot
-- **webpilot_e2e_test_tool**: Herramienta específica para pruebas E2E
+- **freejack_browser_tool**: Simula la interacción con la extensión Freejack
+- **freejack_e2e_test_tool**: Herramienta específica para pruebas E2E
 
 ## Configuración
 
@@ -39,11 +39,11 @@ pip install selenium playwright
 
 ### Ejemplo Simple
 
-Ejecuta el ejemplo básico de CrewAI con WebPilot:
+Ejecuta el ejemplo básico de CrewAI con Freejack:
 
 ```bash
 cd demo
-python webpilot_crew_example.py
+python freejack_crew_example.py
 ```
 
 ### Pruebas E2E
@@ -64,7 +64,7 @@ CrewAI (Coordinador)
 ├── Diseñador de Pruebas
 │   └── Diseña escenarios de prueba
 ├── Ejecutor de Pruebas  
-│   └── Ejecuta pruebas usando WebPilot
+│   └── Ejecuta pruebas usando Freejack
 └── Analista de Calidad
     └── Analiza resultados y proporciona insights
 ```
@@ -84,12 +84,12 @@ Para adaptar las pruebas a tus necesidades específicas:
 
 1. Modifica los objetos `Agent` en los archivos Python para ajustar roles y responsabilidades
 2. Cambia las descripciones de `Task` para definir nuevas pruebas
-3. Adapta los métodos en `MockWebPilotEnvironment` para simular tu entorno real
-4. Extiende `WebPilotTestScenarios` para agregar nuevos tipos de pruebas
+3. Adapta los métodos en `MockFreejackEnvironment` para simular tu entorno real
+4. Extiende `FreejackTestScenarios` para agregar nuevos tipos de pruebas
 
 ## Consideraciones para Producción
 
-Cuando se integre con la extensión WebPilot real:
+Cuando se integre con la extensión Freejack real:
 
 1. **Conexión con la extensión**: Reemplaza la lógica simulada con conexiones reales a la API de la extensión
 2. **Gestión de sesiones**: Implementa manejo adecuado de sesiones de navegador
@@ -101,6 +101,6 @@ Cuando se integre con la extensión WebPilot real:
 Las contribuciones para mejorar esta integración son bienvenidas. Puedes:
 
 - Agregar nuevos escenarios de prueba
-- Mejorar la simulación del entorno WebPilot
+- Mejorar la simulación del entorno Freejack
 - Crear conectores reales con la extensión
 - Documentar mejores prácticas para pruebas con CrewAI

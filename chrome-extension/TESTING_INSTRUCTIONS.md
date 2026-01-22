@@ -1,4 +1,4 @@
-# Instrucciones para Probar la Extensión WebPilot Chrome
+# Instrucciones para Probar la Extensión Freejack Chrome
 
 ## Prueba Manual en Chrome
 
@@ -12,7 +12,7 @@
 
 ### Paso 3: Cargar la Extensión
 1. Haz clic en el botón "Cargar extensión sin empaquetar"
-2. Navega a la carpeta `/Users/nadalpiantini/Dev/webpilot/dist`
+2. Navega a la carpeta `/Users/nadalpiantini/Dev/freejack/dist`
 3. Selecciona la carpeta y haz clic en "Seleccionar carpeta"
 
 ### Paso 4: Verificar la Instalación
@@ -37,7 +37,7 @@
 4. Prueba la extensión y observa si hay mensajes de error
 
 ### Accediendo al Background Script
-1. En la página `chrome://extensions/`, encuentra la extensión WebPilot
+1. En la página `chrome://extensions/`, encuentra la extensión Freejack
 2. Asegúrate de que "Modo de desarrollador" esté activado
 3. Haz clic en "Detalles" para la extensión
 4. Desplázate hacia abajo hasta "Extension Views"
@@ -50,17 +50,17 @@ Para probar la integración que hemos desarrollado con CrewAI:
 ### Paso 1: Preparar el Entorno
 1. Asegúrate de tener Python 3.8+ instalado
 2. Instala las dependencias: `pip install crewai langchain langchain-community`
-3. Ten Chrome con la extensión WebPilot instalada y activa
+3. Ten Chrome con la extensión Freejack instalada y activa
 
 ### Paso 2: Ejecutar Pruebas
-1. Navega a la carpeta del proyecto: `cd /Users/nadalpiantini/Dev/webpilot/chrome-extension`
+1. Navega a la carpeta del proyecto: `cd /Users/nadalpiantini/Dev/freejack/chrome-extension`
 2. Ejecuta el script de pruebas: `./run-e2e-tests.sh`
 3. Sigue las instrucciones del menú para ejecutar el tipo de prueba deseado
 
 ## Posibles Problemas y Soluciones
 
 ### Problema: "Failed to load extension"
-- Verifica que la carpeta `/Users/nadalpiantini/Dev/webpilot/dist` contiene el archivo `manifest.json`
+- Verifica que la carpeta `/Users/nadalpiantini/Dev/freejack/dist` contiene el archivo `manifest.json`
 - Asegúrate de que no hay caracteres especiales en las rutas
 
 ### Problema: "Missing permissions"
@@ -69,7 +69,7 @@ Para probar la integración que hemos desarrollado con CrewAI:
 
 ### Problema: La extensión no responde
 - Abre la consola de desarrollador y revisa los mensajes de error
-- Asegúrate de que no hay otras extensiones que interfieran con WebPilot
+- Asegúrate de que no hay otras extensiones que interfieran con Freejack
 
 ## Verificación Final
 

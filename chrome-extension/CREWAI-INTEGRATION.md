@@ -1,12 +1,12 @@
-# CrewAI Integration para WebPilot Chrome Extension
+# CrewAI Integration para Freejack Chrome Extension
 
 ## Introducción
 
-Este documento explica cómo integrar la extensión de Chrome WebPilot con CrewAI para pruebas de extremo a extremo. La extensión WebPilot ya tiene una arquitectura de agente muy completa que puede ser utilizada como parte de un crew de CrewAI.
+Este documento explica cómo integrar la extensión de Chrome Freejack con CrewAI para pruebas de extremo a extremo. La extensión Freejack ya tiene una arquitectura de agente muy completa que puede ser utilizada como parte de un crew de CrewAI.
 
 ## Arquitectura Actual
 
-La extensión WebPilot ya implementa una arquitectura de agentes con:
+La extensión Freejack ya implementa una arquitectura de agentes con:
 
 1. **Executor**: Coordinador principal que maneja la ejecución de tareas
 2. **Navigator Agent**: Agente que realiza acciones específicas en la página web
@@ -17,7 +17,7 @@ La extensión WebPilot ya implementa una arquitectura de agentes con:
 
 ## Integración con CrewAI
 
-Para usar CrewAI con WebPilot, puedes crear agentes que utilicen la extensión como herramienta. A continuación se muestra un ejemplo de cómo podrías hacerlo:
+Para usar CrewAI con Freejack, puedes crear agentes que utilicen la extensión como herramienta. A continuación se muestra un ejemplo de cómo podrías hacerlo:
 
 ```python
 from crewai import Agent, Task, Crew
@@ -25,11 +25,11 @@ from langchain.tools import tool
 import asyncio
 import json
 
-# Definir herramienta para interactuar con la extensión WebPilot
-@tool("webpilot_browser_tool")
-def webpilot_browser_tool(input_data: str) -> str:
+# Definir herramienta para interactuar con la extensión Freejack
+@tool("freejack_browser_tool")
+def freejack_browser_tool(input_data: str) -> str:
     """
-    Herramienta para interactuar con la extensión WebPilot de Chrome.
+    Herramienta para interactuar con la extensión Freejack de Chrome.
     
     Args:
         input_data: JSON string con la siguiente estructura:
@@ -42,28 +42,28 @@ def webpilot_browser_tool(input_data: str) -> str:
     Returns:
         Resultado de la ejecución de la tarea
     """
-    # Aquí iría la lógica para comunicarse con la extensión WebPilot
+    # Aquí iría la lógica para comunicarse con la extensión Freejack
     # Esto podría implicar usar Puppeteer, Selenium, o una API dedicada
     
     try:
         data = json.loads(input_data)
         task_description = data["task"]
         
-        # Simular interacción con la extensión WebPilot
+        # Simular interacción con la extensión Freejack
         # En un caso real, aquí se comunicaría con la extensión
         
-        return f"Tarea '{task_description}' enviada a WebPilot para ejecución"
+        return f"Tarea '{task_description}' enviada a Freejack para ejecución"
     except Exception as e:
         return f"Error al procesar la solicitud: {str(e)}"
 
-# Crear agentes que usan WebPilot como herramienta
+# Crear agentes que usan Freejack como herramienta
 researcher_agent = Agent(
     role='Investigador Web',
-    goal='Buscar información precisa y relevante en la web usando la extensión WebPilot',
+    goal='Buscar información precisa y relevante en la web usando la extensión Freejack',
     backstory='Eres un experto en investigación web que sabe cómo usar herramientas avanzadas '
              'de automatización de navegación para encontrar información difícil de obtener.',
     verbose=True,
-    tools=[webpilot_browser_tool]
+    tools=[freejack_browser_tool]
 )
 
 analyst_agent = Agent(
@@ -76,7 +76,7 @@ analyst_agent = Agent(
 
 # Definir tareas
 research_task = Task(
-    description='Usa WebPilot para navegar a https://example.com y extraer información '
+    description='Usa Freejack para navegar a https://example.com y extraer información '
                 'sobre productos o servicios destacados. La tarea debe incluir explorar '
                 'la página y tomar capturas de pantalla de elementos relevantes.',
     expected_output='Lista de productos o servicios destacados en example.com con capturas de pantalla.',
@@ -112,7 +112,7 @@ import asyncio
 import websockets
 import json
 
-class WebPilotController:
+class FreejackController:
     def __init__(self):
         self.websocket = None
     
@@ -136,12 +136,12 @@ class WebPilotController:
         return json.loads(response)
 
 # Uso dentro de una herramienta de CrewAI
-@tool("webpilot_direct_control")
-def webpilot_direct_control(input_data: str) -> str:
+@tool("freejack_direct_control")
+def freejack_direct_control(input_data: str) -> str:
     """
-    Control directo de la extensión WebPilot para pruebas E2E.
+    Control directo de la extensión Freejack para pruebas E2E.
     """
-    controller = WebPilotController()
+    controller = FreejackController()
     # Lógica para controlar directamente la extensión
     # Esta implementación dependerá de cómo exponga la extensión su API
     pass
@@ -149,21 +149,21 @@ def webpilot_direct_control(input_data: str) -> str:
 
 ## Beneficios de la Integración
 
-1. **Automatización Completa**: Combina la potencia de CrewAI con las habilidades de navegación de WebPilot
+1. **Automatización Completa**: Combina la potencia de CrewAI con las habilidades de navegación de Freejack
 2. **Testing E2E**: Permite pruebas de extremo a extremo complejas simulando usuarios reales
 3. **Flujos de Trabajo**: Crea flujos de trabajo que requieren tanto análisis como navegación web
-4. **Validación de Agente**: Usa CrewAI para validar que el agente de WebPilot funcione correctamente
+4. **Validación de Agente**: Usa CrewAI para validar que el agente de Freejack funcione correctamente
 
 ## Consideraciones Técnicas
 
-- La extensión WebPilot ya tiene un sistema de mensajes y estado que puede requerir adaptación
-- Es importante manejar el ciclo de vida de las tareas y la sincronización entre CrewAI y WebPilot
+- La extensión Freejack ya tiene un sistema de mensajes y estado que puede requerir adaptación
+- Es importante manejar el ciclo de vida de las tareas y la sincronización entre CrewAI y Freejack
 - Se deben gestionar adecuadamente los tiempos de espera y errores de red
 - La seguridad y permisos de la extensión deben considerarse al integrar con sistemas externos
 
 ## Próximos Pasos
 
-1. Crear un conector oficial entre CrewAI y WebPilot
+1. Crear un conector oficial entre CrewAI y Freejack
 2. Implementar pruebas E2E específicas para validar funcionalidades clave
 3. Documentar patrones comunes de uso para flujos de trabajo complejos
-4. Crear ejemplos específicos de crews que utilicen WebPilot para diferentes propósitos
+4. Crear ejemplos específicos de crews que utilicen Freejack para diferentes propósitos

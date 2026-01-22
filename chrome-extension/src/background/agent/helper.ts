@@ -351,8 +351,8 @@ export function createChatModel(providerConfig: ProviderConfig, modelConfig: Mod
       console.log('[createChatModel] Calling createOpenAIChatModel for OpenRouter');
       return createOpenAIChatModel(providerConfig, modelConfig, {
         headers: {
-          'HTTP-Referer': 'https://webpilot.ai',
-          'X-Title': 'WebPilot',
+          'HTTP-Referer': 'https://freejack.ai',
+          'X-Title': 'Freejack',
         },
       });
     }

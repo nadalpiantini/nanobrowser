@@ -1,19 +1,19 @@
-# Resumen del Sprint - Integración CrewAI con WebPilot
+# Resumen del Sprint - Integración CrewAI con Freejack
 
 ## Objetivo del Sprint
-Implementar una integración completa entre CrewAI y WebPilot Chrome Extension para permitir pruebas de extremo a extremo (E2E) automatizadas.
+Implementar una integración completa entre CrewAI y Freejack Chrome Extension para permitir pruebas de extremo a extremo (E2E) automatizadas.
 
 ## Tareas Completadas
 
 ### 1. Investigación y Análisis
-- [x] Explorar la arquitectura existente de WebPilot
+- [x] Explorar la arquitectura existente de Freejack
 - [x] Comprender cómo se manejan los modos de desarrollo y debug
 - [x] Analizar la estructura de agentes existentes en la extensión
 - [x] Evaluar posibilidad de integración con frameworks de agentes externos
 
 ### 2. Desarrollo de la Integración
-- [x] Crear documentación sobre cómo integrar CrewAI con WebPilot
-- [x] Desarrollar ejemplos prácticos de uso de CrewAI con herramientas de WebPilot
+- [x] Crear documentación sobre cómo integrar CrewAI con Freejack
+- [x] Desarrollar ejemplos prácticos de uso de CrewAI con herramientas de Freejack
 - [x] Implementar escenarios de prueba E2E para validar funcionalidades
 - [x] Crear scripts de automatización para ejecución de pruebas
 
@@ -30,7 +30,7 @@ Implementar una integración completa entre CrewAI y WebPilot Chrome Extension p
 
 ## Resultados Alcanzados
 
-1. **Integración Funcional**: Se ha logrado una integración conceptual entre CrewAI y WebPilot que demuestra cómo usar la extensión como herramienta dentro de un crew de agentes.
+1. **Integración Funcional**: Se ha logrado una integración conceptual entre CrewAI y Freejack que demuestra cómo usar la extensión como herramienta dentro de un crew de agentes.
 
 2. **Pruebas E2E**: Se han desarrollado escenarios de prueba completos que abarcan navegación básica, interacción con formularios y flujos de trabajo complejos.
 
@@ -41,10 +41,10 @@ Implementar una integración completa entre CrewAI y WebPilot Chrome Extension p
 ## Artefactos Generados
 
 - `CREWAI-INTEGRATION.md` - Documentación sobre la integración
-- `README-DEVELOPMENT.md` - Guía sobre el modo desarrollo de WebPilot
+- `README-DEVELOPMENT.md` - Guía sobre el modo desarrollo de Freejack
 - `debug-init.js` - Script de inicialización para modo desarrollo
 - `demo/` - Carpeta con ejemplos prácticos
-  - `webpilot_crew_example.py` - Ejemplo básico de CrewAI + WebPilot
+  - `freejack_crew_example.py` - Ejemplo básico de CrewAI + Freejack
   - `e2e_test_scenarios.py` - Escenarios de prueba E2E
   - `README-E2E.md` - Documentación sobre pruebas E2E
 - `run-e2e-tests.sh` - Script de automatización para ejecución de pruebas
@@ -52,7 +52,7 @@ Implementar una integración completa entre CrewAI y WebPilot Chrome Extension p
 ## Impacto del Sprint
 
 Esta integración permite:
-- Validación automatizada de las funcionalidades de WebPilot
+- Validación automatizada de las funcionalidades de Freejack
 - Pruebas de regresión efectivas para nuevas características
 - Validación de escenarios complejos de usuario
 - Facilita el desarrollo y mantenimiento de la extensión
@@ -67,7 +67,7 @@ Posibles tareas para el siguiente sprint:
 
 ## Lecciones Aprendidas
 
-1. La arquitectura modular de WebPilot facilita su integración con frameworks externos
+1. La arquitectura modular de Freejack facilita su integración con frameworks externos
 2. Es importante mantener una capa de abstracción para simular funcionalidades en entornos de prueba
 3. La documentación clara es fundamental para que otros desarrolladores puedan reutilizar la integración
 4. Los scripts de automatización aumentan significativamente la productividad

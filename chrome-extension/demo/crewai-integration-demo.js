@@ -3,11 +3,11 @@ const fs = require('fs');
 const path = require('path');
 
 /**
- * Script de ejemplo para integrar CrewAI con WebPilot Chrome Extension
+ * Script de ejemplo para integrar CrewAI con Freejack Chrome Extension
  * Este script demuestra cómo se podría configurar una integración para pruebas E2E
  */
 
-class CrewAIWebPilotDemo {
+class CrewAIFreejackDemo {
   constructor() {
     this.extensionPath = path.join(__dirname, '..');
     this.demoDir = path.join(__dirname, 'demo');
@@ -67,11 +67,11 @@ class CrewAIWebPilotDemo {
    * Crea un archivo de ejemplo de integración con CrewAI
    */
   createCrewAIExample() {
-    const examplePath = path.join(this.demoDir, 'webpilot_crew_example.py');
+    const examplePath = path.join(this.demoDir, 'freejack_crew_example.py');
 
     const exampleCode = `"""
-Ejemplo de integración entre CrewAI y WebPilot Chrome Extension
-Este script demuestra cómo usar WebPilot como herramienta dentro de un crew de CrewAI
+Ejemplo de integración entre CrewAI y Freejack Chrome Extension
+Este script demuestra cómo usar Freejack como herramienta dentro de un crew de CrewAI
 """
 
 from crewai import Agent, Task, Crew
@@ -81,10 +81,10 @@ import json
 import time
 from typing import Dict, Any, Optional
 
-# Simulación de la clase WebPilotController
-class WebPilotController:
+# Simulación de la clase FreejackController
+class FreejackController:
     """
-    Controlador simulado para interactuar con WebPilot Chrome Extension
+    Controlador simulado para interactuar con Freejack Chrome Extension
     En una implementación real, esto se conectaría con la extensión
     """
     
@@ -94,15 +94,15 @@ class WebPilotController:
     
     async def execute_task(self, task_description: str, tab_id: Optional[int] = None) -> Dict[str, Any]:
         """
-        Ejecuta una tarea usando WebPilot
+        Ejecuta una tarea usando Freejack
         """
         self.task_counter += 1
         task_id = f"wp-task-{self.task_counter}-{int(time.time())}"
         target_tab_id = tab_id or self.current_tab_id
         
-        # Simular la interacción con WebPilot
-        print(f"[WebPilot] Ejecutando tarea: {task_description}")
-        print(f"[WebPilot] Tab ID: {target_tab_id}, Task ID: {task_id}")
+        # Simular la interacción con Freejack
+        print(f"[Freejack] Ejecutando tarea: {task_description}")
+        print(f"[Freejack] Tab ID: {target_tab_id}, Task ID: {task_id}")
         
         # Simular la ejecución real con la extensión
         await asyncio.sleep(2)  # Simula tiempo de procesamiento
@@ -134,12 +134,12 @@ class WebPilotController:
         return mock_result
 
 # Crear instancia global del controlador
-webpilot_controller = WebPilotController()
+freejack_controller = FreejackController()
 
-@tool("webpilot_browser_tool")
-def webpilot_browser_tool(input_data: str) -> str:
+@tool("freejack_browser_tool")
+def freejack_browser_tool(input_data: str) -> str:
     """
-    Herramienta para interactuar con la extensión WebPilot de Chrome.
+    Herramienta para interactuar con la extensión Freejack de Chrome.
     
     Args:
         input_data: JSON string con la siguiente estructura:
@@ -170,11 +170,11 @@ def webpilot_browser_tool(input_data: str) -> str:
                 "error": "Falta la descripción de la tarea en el input_data"
             })
         
-        # Ejecutar tarea con el controlador de WebPilot
+        # Ejecutar tarea con el controlador de Freejack
         import asyncio
         
         async def run_task():
-            return await webpilot_controller.execute_task(task_description, tab_id)
+            return await freejack_controller.execute_task(task_description, tab_id)
         
         # Ejecutar en event loop
         result = asyncio.run(run_task())
@@ -192,12 +192,12 @@ def webpilot_browser_tool(input_data: str) -> str:
 # Definir agentes
 web_researcher = Agent(
     role='Investigador Web',
-    goal='Utilizar WebPilot para navegar sitios web y extraer información específica',
+    goal='Utilizar Freejack para navegar sitios web y extraer información específica',
     backstory='Eres un experto en investigación web con acceso a una poderosa herramienta '
               'que puede automatizar la navegación en sitios web. Sabes cómo formular tareas '
               'claras y específicas para que la herramienta pueda ejecutarlas de manera eficiente.',
     verbose=True,
-    tools=[webpilot_browser_tool]
+    tools=[freejack_browser_tool]
 )
 
 data_analyst = Agent(
@@ -219,7 +219,7 @@ insights_generator = Agent(
 # Definir tareas
 research_task = Task(
     description='''
-    Usar WebPilot para visitar https://scrapethissite.com y extraer información 
+    Usar Freejack para visitar https://scrapethissite.com y extraer información 
     sobre las páginas de ejemplo disponibles. Buscar enlaces a páginas que contengan 
     información sobre animales, películas o páginas de ejemplo.
     ''',
@@ -252,7 +252,7 @@ report_task = Task(
 
 # Crear y ejecutar el crew
 def run_demo():
-    print("🚀 Iniciando demo de CrewAI con WebPilot...")
+    print("🚀 Iniciando demo de CrewAI con Freejack...")
     
     web_research_crew = Crew(
         agents=[web_researcher, data_analyst, insights_generator],
@@ -295,7 +295,7 @@ if __name__ == "__main__":
    * Ejecuta la demostración
    */
   async runDemo() {
-    console.log('🧪 Iniciando demo de integración CrewAI - WebPilot');
+    console.log('🧪 Iniciando demo de integración CrewAI - Freejack');
 
     // Intentar instalar dependencias
     const depsInstalled = await this.installDependencies();
@@ -316,9 +316,9 @@ if __name__ == "__main__":
     // Mostrar instrucciones
     console.log('\\n📋 Instrucciones:');
     console.log('   1. Revise el archivo de ejemplo generado');
-    console.log('   2. Adapte las conexiones con WebPilot según su implementación real');
+    console.log('   2. Adapte las conexiones con Freejack según su implementación real');
     console.log('   3. Ejecute con: python3', examplePath);
-    console.log('   4. Observe cómo CrewAI coordina tareas con WebPilot como herramienta');
+    console.log('   4. Observe cómo CrewAI coordina tareas con Freejack como herramienta');
 
     return {
       success: true,
@@ -329,8 +329,8 @@ if __name__ == "__main__":
 
 // Si se ejecuta directamente este script
 if (require.main === module) {
-  const demo = new CrewAIWebPilotDemo();
+  const demo = new CrewAIFreejackDemo();
   demo.runDemo().catch(console.error);
 }
 
-module.exports = CrewAIWebPilotDemo;
+module.exports = CrewAIFreejackDemo;
