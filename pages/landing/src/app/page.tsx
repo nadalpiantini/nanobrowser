@@ -11,7 +11,7 @@ export default function Home() {
         {/* Freejack Logo - Giant Center */}
         <div className="relative mb-12">
           {/* Neon glow effect behind logo */}
-          <div className="absolute inset-0 bg-gradient-to-r from-neon-pink via-neon-cyan to-neon-purple blur-3xl opacity-40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-crimson blur-3xl opacity-40" />
 
           {/* Main logo */}
           <div className="relative w-64 h-64 md:w-96 md:h-96 lg:w-[32rem] lg:h-[32rem]">
@@ -21,7 +21,7 @@ export default function Home() {
               width={512}
               height={512}
               priority
-              className="w-full h-full object-contain drop-shadow-[0_0_50px_rgba(255,16,240,0.5)]"
+              className="w-full h-full object-contain drop-shadow-[0_0_50px_rgba(233,30,140,0.5)]"
             />
           </div>
         </div>
@@ -41,9 +41,9 @@ export default function Home() {
         <div className="mt-16 flex flex-col sm:flex-row gap-4">
           <a
             href="#"
-            className="group relative px-8 py-4 bg-gradient-to-r from-neon-pink to-neon-cyan rounded-full font-bold text-lg overflow-hidden transition-all hover:scale-105">
+            className="group relative px-8 py-4 bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-crimson rounded-full font-bold text-lg overflow-hidden transition-all hover:scale-105">
             <span className="relative z-10">Get Started</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan to-neon-pink opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-0 bg-gradient-to-r from-neon-crimson via-neon-magenta to-neon-cyan opacity-0 group-hover:opacity-100 transition-opacity" />
           </a>
 
           <a
@@ -56,7 +56,7 @@ export default function Home() {
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
           <div className="w-6 h-10 border-2 border-neon-cyan/50 rounded-full flex justify-center p-2">
-            <div className="w-1 h-2 bg-neon-cyan rounded-full animate-bounce" />
+            <div className="w-1 h-2 bg-gradient-to-b from-neon-cyan to-neon-magenta rounded-full animate-bounce" />
           </div>
         </div>
       </section>

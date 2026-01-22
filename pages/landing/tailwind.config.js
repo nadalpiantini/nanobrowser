@@ -8,18 +8,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Miami 80's Palette
+        // Freejack Logo Palette (80's Miami spray paint)
         neon: {
-          pink: '#FF10F0',
-          cyan: '#00F0FF',
-          yellow: '#FFF000',
-          purple: '#B026FF',
-          orange: '#FF6B35',
+          cyan: '#2DD4BF', // Primary - turquoise from logo
+          teal: '#14B8A6', // Deeper variant
+          magenta: '#E91E8C', // Secondary - magenta from logo
+          pink: '#FF3CAC', // Vibrant highlight
+          crimson: '#C41E3A', // Emphasis - crimson from logo
         },
         miami: {
-          night: '#1e293b', // Same as side panel (slate-800)
-          dark: '#1A1F3A',
-          grid: '#2A2F4A',
+          dark: '#050508', // Mac Tahoe deep black
+          card: '#0C0C12', // Card surface
+          elevated: '#141420', // Elevated elements
         },
       },
       fontFamily: {
@@ -32,8 +32,9 @@ export default {
       },
       keyframes: {
         glow: {
-          '0%': { textShadow: '0 0 20px #FF10F0, 0 0 30px #FF10F0, 0 0 40px #FF10F0' },
-          '100%': { textShadow: '0 0 30px #00F0FF, 0 0 40px #00F0FF, 0 0 50px #00F0FF' },
+          '0%': { textShadow: '0 0 20px #2DD4BF, 0 0 30px #2DD4BF, 0 0 40px #2DD4BF' },
+          '50%': { textShadow: '0 0 30px #E91E8C, 0 0 40px #E91E8C, 0 0 50px #E91E8C' },
+          '100%': { textShadow: '0 0 20px #C41E3A, 0 0 30px #C41E3A, 0 0 40px #C41E3A' },
         },
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
