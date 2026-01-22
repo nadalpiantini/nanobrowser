@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main className="min-h-screen relative overflow-hidden">
       {/* Grid overlay effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-miami-dark/50 to-miami-night pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-miami-dark/50 to-miami-dark pointer-events-none" />
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-4">
