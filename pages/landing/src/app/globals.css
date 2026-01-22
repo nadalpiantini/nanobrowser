@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --neon-pink: #FF10F0;
+    --neon-cyan: #00F0FF;
+    --neon-yellow: #FFF000;
+    --miami-night: #0A0E27;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-miami-night text-white font-display;
+    background-image:
+      linear-gradient(rgba(255, 16, 240, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow:
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 30px currentColor;
+  }
+
+  .neon-border {
+    border: 2px solid var(--neon-cyan);
+    box-shadow:
+      0 0 5px var(--neon-cyan),
+      inset 0 0 5px var(--neon-cyan);
+  }
+
+  .glass-morphism {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
