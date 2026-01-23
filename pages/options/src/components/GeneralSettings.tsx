@@ -1,37 +1,18 @@
 import { useState, useEffect } from 'react';
-import {
-  type GeneralSettingsConfig,
-  generalSettingsStore,
-  DEFAULT_GENERAL_SETTINGS,
-  devSettingsStore,
-  ADMIN_EMAIL,
-} from '@extension/storage';
+import { type GeneralSettingsConfig, generalSettingsStore, DEFAULT_GENERAL_SETTINGS } from '@extension/storage';
 import { t } from '@extension/i18n';
 
 interface GeneralSettingsProps {
   isDarkMode?: boolean;
-  onAdminStatusChange?: (isAdmin: boolean) => void;
 }
 
-export const GeneralSettings = ({ isDarkMode = false, onAdminStatusChange }: GeneralSettingsProps) => {
+export const GeneralSettings = ({ isDarkMode = false }: GeneralSettingsProps) => {
   const [settings, setSettings] = useState<GeneralSettingsConfig>(DEFAULT_GENERAL_SETTINGS);
-  const [adminEmail, setAdminEmail] = useState('');
 
   useEffect(() => {
     // Load initial settings
     generalSettingsStore.getSettings().then(setSettings);
-    // Load admin email
-    devSettingsStore.getSettings().then(devSettings => {
-      setAdminEmail(devSettings.adminEmail || '');
-    });
   }, []);
-
-  const handleAdminEmailChange = async (email: string) => {
-    setAdminEmail(email);
-    await devSettingsStore.updateSettings({ adminEmail: email });
-    const isAdmin = email.toLowerCase() === ADMIN_EMAIL.toLowerCase();
-    onAdminStatusChange?.(isAdmin);
-  };
 
   const updateSetting = async <K extends keyof GeneralSettingsConfig>(key: K, value: GeneralSettingsConfig[K]) => {
     // Optimistically update the local state for responsiveness
@@ -247,38 +228,6 @@ export const GeneralSettings = ({ isDarkMode = false, onAdminStatusChange }: Gen
               </label>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Admin Email Section */}
-      <div
-        className={`rounded-lg border ${isDarkMode ? 'border-slate-700 bg-slate-800' : 'border-blue-100 bg-white'} p-6 text-left shadow-sm`}>
-        <h2 className={`mb-4 text-left text-xl font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
-          🔐 Account
-        </h2>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className={`text-base font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Your Email</h3>
-              <p className={`text-sm font-normal ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                Enter your email to unlock features
-              </p>
-            </div>
-            <input
-              id="adminEmail"
-              type="email"
-              value={adminEmail}
-              onChange={e => handleAdminEmailChange(e.target.value)}
-              placeholder="your@email.com"
-              className={`w-64 rounded-md border ${isDarkMode ? 'border-slate-600 bg-slate-700 text-gray-200' : 'border-gray-300 bg-white text-gray-700'} px-3 py-2`}
-            />
-          </div>
-          {adminEmail.toLowerCase() === ADMIN_EMAIL.toLowerCase() && (
-            <div className="flex items-center gap-2 rounded-md bg-green-500/10 px-3 py-2 text-green-600">
-              <span>✅</span>
-              <span className="text-sm font-medium">Admin mode enabled - Dev Tools tab unlocked</span>
-            </div>
-          )}
         </div>
       </div>
     </section>

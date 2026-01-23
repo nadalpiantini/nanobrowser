@@ -22,7 +22,7 @@ import {
   type ModelConfig,
   ProviderTypeEnum,
   devSettingsStore,
-  ADMIN_EMAIL,
+  authStore,
 } from '@extension/storage';
 import { createLogger } from '@src/background/log';
 
@@ -33,20 +33,31 @@ let cachedDevSettings: {
   useLocalLLM: boolean;
   localLLMBaseUrl: string;
   localLLMModel: string;
-  adminEmail: string;
 } | null = null;
 
-// Initialize cache on module load
-devSettingsStore.getSettings().then(settings => {
+// Cache for auth settings
+let cachedIsAdmin = false;
+
+// Initialize caches on module load
+Promise.all([devSettingsStore.getSettings(), authStore.isAdmin()]).then(([settings, isAdmin]) => {
   cachedDevSettings = settings;
-  logger.debug('🔧 Dev settings loaded', { useLocalLLM: settings.useLocalLLM, model: settings.localLLMModel });
+  cachedIsAdmin = isAdmin;
+  logger.debug('🔧 Settings loaded', { useLocalLLM: settings.useLocalLLM, model: settings.localLLMModel, isAdmin });
 });
 
-// Subscribe to changes
+// Subscribe to dev settings changes
 devSettingsStore.subscribe?.(() => {
   devSettingsStore.getSettings().then(settings => {
     cachedDevSettings = settings;
     logger.info('🔧 Dev settings updated', { useLocalLLM: settings.useLocalLLM, model: settings.localLLMModel });
+  });
+});
+
+// Subscribe to auth changes
+authStore.subscribe?.(() => {
+  authStore.isAdmin().then(isAdmin => {
+    cachedIsAdmin = isAdmin;
+    logger.info('🔐 Auth status updated', { isAdmin });
   });
 });
 
@@ -77,10 +88,8 @@ export function isDevLocalMode(): boolean {
   const isNotProd = import.meta.env.PROD !== true;
   const envResult = envFlag && isDev && isNotProd;
 
-  // Method 2: Admin UI toggle (new - for nadalpiantini@gmail.com only)
-  const adminToggle =
-    cachedDevSettings?.useLocalLLM === true &&
-    cachedDevSettings?.adminEmail?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+  // Method 2: Admin UI toggle (validated via authStore)
+  const adminToggle = cachedDevSettings?.useLocalLLM === true && cachedIsAdmin;
 
   const result = envResult || adminToggle;
 
@@ -115,8 +124,8 @@ export function canUseLocalForOperation(operation: OperationType): boolean {
 // 🧠 MODEL SELECTION (Local)
 // ═══════════════════════════════════════════════════════════════════
 export function getLocalModelForAgent(agentName: string): string {
-  // Priority 1: Admin UI settings
-  if (cachedDevSettings?.localLLMModel && cachedDevSettings?.adminEmail?.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+  // Priority 1: Admin UI settings (validated via authStore)
+  if (cachedDevSettings?.localLLMModel && cachedIsAdmin) {
     return cachedDevSettings.localLLMModel;
   }
 
@@ -133,11 +142,8 @@ export function getLocalModelForAgent(agentName: string): string {
 
 // Get local LLM base URL (from UI settings or env vars)
 export function getLocalLLMBaseUrl(): string {
-  // Priority 1: Admin UI settings
-  if (
-    cachedDevSettings?.localLLMBaseUrl &&
-    cachedDevSettings?.adminEmail?.toLowerCase() === ADMIN_EMAIL.toLowerCase()
-  ) {
+  // Priority 1: Admin UI settings (validated via authStore)
+  if (cachedDevSettings?.localLLMBaseUrl && cachedIsAdmin) {
     return cachedDevSettings.localLLMBaseUrl;
   }
 

@@ -3,21 +3,23 @@ import '@src/Options.css';
 import { Button } from '@extension/ui';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
 import { t } from '@extension/i18n';
-import { FiSettings, FiCpu, FiShield, FiTrendingUp, FiHelpCircle, FiTool } from 'react-icons/fi';
+import { FiSettings, FiCpu, FiShield, FiTrendingUp, FiHelpCircle, FiTool, FiUser } from 'react-icons/fi';
 import { GeneralSettings } from './components/GeneralSettings';
 import { ModelSettings } from './components/ModelSettings';
 import { FirewallSettings } from './components/FirewallSettings';
 import { AnalyticsSettings } from './components/AnalyticsSettings';
 import { DevSettings } from './components/DevSettings';
-import { devSettingsStore, ADMIN_EMAIL } from '@extension/storage';
+import { AuthSettings } from './components/AuthSettings';
+import { authStore } from '@extension/storage';
 
-type TabTypes = 'general' | 'models' | 'firewall' | 'analytics' | 'dev' | 'help';
+type TabTypes = 'general' | 'models' | 'firewall' | 'analytics' | 'account' | 'dev' | 'help';
 
 const BASE_TABS: { id: TabTypes; icon: React.ComponentType<{ className?: string }>; label: string }[] = [
   { id: 'general', icon: FiSettings, label: t('options_tabs_general') },
   { id: 'models', icon: FiCpu, label: t('options_tabs_models') },
   { id: 'firewall', icon: FiShield, label: t('options_tabs_firewall') },
   { id: 'analytics', icon: FiTrendingUp, label: 'Analytics' },
+  { id: 'account', icon: FiUser, label: '🔐 Account' },
   { id: 'help', icon: FiHelpCircle, label: t('options_tabs_help') },
 ];
 
@@ -31,11 +33,16 @@ const Options = () => {
 
   // Check admin status on mount
   useEffect(() => {
-    devSettingsStore.isAdmin().then(setIsAdmin);
+    authStore.isAdmin().then(setIsAdmin);
   }, []);
 
-  // Build tabs list - include dev tab only for admin
-  const TABS = isAdmin ? [...BASE_TABS.slice(0, 4), DEV_TAB, BASE_TABS[4]] : BASE_TABS;
+  // Handle auth change from AuthSettings
+  const handleAuthChange = (isAuthenticated: boolean, admin: boolean) => {
+    setIsAdmin(admin);
+  };
+
+  // Build tabs list - include dev tab only for admin (insert before help)
+  const TABS = isAdmin ? [...BASE_TABS.slice(0, 5), DEV_TAB, BASE_TABS[5]] : BASE_TABS;
 
   // Check for dark mode preference
   useEffect(() => {
@@ -61,13 +68,15 @@ const Options = () => {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'general':
-        return <GeneralSettings isDarkMode={isDarkMode} onAdminStatusChange={setIsAdmin} />;
+        return <GeneralSettings isDarkMode={isDarkMode} />;
       case 'models':
         return <ModelSettings isDarkMode={isDarkMode} />;
       case 'firewall':
         return <FirewallSettings isDarkMode={isDarkMode} />;
       case 'analytics':
         return <AnalyticsSettings isDarkMode={isDarkMode} />;
+      case 'account':
+        return <AuthSettings isDarkMode={isDarkMode} onAuthChange={handleAuthChange} />;
       case 'dev':
         return isAdmin ? <DevSettings isDarkMode={isDarkMode} /> : null;
       default:
