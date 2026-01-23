@@ -59,8 +59,14 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         external: [
           'chrome',
-          // 'chromium-bidi/lib/cjs/bidiMapper/BidiMapper.js'
+          // Exclude chromium-bidi - extension uses CDP protocol, not BiDi
+          /^chromium-bidi/,
         ],
+        output: {
+          globals: {
+            chrome: 'chrome',
+          },
+        },
       },
     },
 

@@ -10,7 +10,7 @@ export async function initializeDefaultProviders() {
       // Crear la configuración predeterminada para DeepSeek
       const deepSeekConfig = {
         ...getDefaultProviderConfig(ProviderTypeEnum.DeepSeek),
-        apiKey: process.env.DEEPSEEK_API_KEY || 'sk-4cefb8d8d21c4670876787dc0f6e8dcb',
+        apiKey: process.env.DEEPSEEK_API_KEY || '', // User must configure their own API key
         modelNames: ['deepseek-chat', 'deepseek-reasoner'], // modelos recomendados para DeepSeek
       };
 
