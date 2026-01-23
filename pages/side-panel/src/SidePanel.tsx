@@ -1015,7 +1015,7 @@ const SidePanel = () => {
               </button>
             ) : (
               <>
-                <img src="/icon-128.png" alt="Freejack Logo" className="size-6 mr-2" />
+                <img src="/icon-128.png" alt="Freejack Logo" className="size-12 mr-2" />
                 <span className={`font-bold ${isDarkMode ? 'text-sky-300' : 'text-sky-700'} hidden md:inline`}>
                   Freejack
                 </span>

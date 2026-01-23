@@ -11,12 +11,12 @@ export const ACTOR_PROFILES = {
   },
   planner: {
     name: 'Planner',
-    icon: 'icons/planner.svg',
+    icon: 'icons/freejack-fc.svg',
     iconBackground: '#FF9800',
   },
   navigator: {
     name: 'Navigator',
-    icon: 'icons/navigator.svg',
+    icon: 'icons/freejack-fc.svg',
     iconBackground: '#40A9FF',
   },
   validator: {

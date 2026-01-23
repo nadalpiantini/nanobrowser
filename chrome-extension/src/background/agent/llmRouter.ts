@@ -5,21 +5,50 @@
  *
  * Purpose: Route LLM requests to Cloud or Local based on:
  * - Build environment (dev vs prod)
+ * - Admin settings (UI toggle for local LLM)
  * - Operation type (planning vs final scraping)
  * - Safety guardrails (never local for user-facing results)
  *
  * Security:
- * - DEV_LOCAL mode ONLY works in development builds
- * - Production builds ignore all local routing
- * - User has NO control over routing (build decides)
+ * - DEV_LOCAL mode works via env vars OR admin UI toggle
+ * - Admin toggle only available to nadalpiantini@gmail.com
+ * - Final user-facing results ALWAYS use cloud
  *
  * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  */
 
-import { type ProviderConfig, type ModelConfig, ProviderTypeEnum } from '@extension/storage';
+import {
+  type ProviderConfig,
+  type ModelConfig,
+  ProviderTypeEnum,
+  devSettingsStore,
+  ADMIN_EMAIL,
+} from '@extension/storage';
 import { createLogger } from '@src/background/log';
 
 const logger = createLogger('llm-router');
+
+// Cache for dev settings to avoid async calls in hot path
+let cachedDevSettings: {
+  useLocalLLM: boolean;
+  localLLMBaseUrl: string;
+  localLLMModel: string;
+  adminEmail: string;
+} | null = null;
+
+// Initialize cache on module load
+devSettingsStore.getSettings().then(settings => {
+  cachedDevSettings = settings;
+  logger.debug('🔧 Dev settings loaded', { useLocalLLM: settings.useLocalLLM, model: settings.localLLMModel });
+});
+
+// Subscribe to changes
+devSettingsStore.subscribe?.(() => {
+  devSettingsStore.getSettings().then(settings => {
+    cachedDevSettings = settings;
+    logger.info('🔧 Dev settings updated', { useLocalLLM: settings.useLocalLLM, model: settings.localLLMModel });
+  });
+});
 
 // ═══════════════════════════════════════════════════════════════════
 // 🎯 OPERATION TYPES
@@ -39,21 +68,28 @@ export enum OperationType {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 🔒 DEV MODE DETECTION (Build-Time)
+// 🔒 DEV MODE DETECTION (Build-Time + Admin UI Toggle)
 // ═══════════════════════════════════════════════════════════════════
 export function isDevLocalMode(): boolean {
-  // Triple guard: env var, NODE_ENV, and build flag
+  // Method 1: Environment variables (original)
   const envFlag = import.meta.env.VITE_FREEJACK_DEV_LOCAL === 'true';
   const isDev = import.meta.env.DEV === true;
   const isNotProd = import.meta.env.PROD !== true;
+  const envResult = envFlag && isDev && isNotProd;
 
-  const result = envFlag && isDev && isNotProd;
+  // Method 2: Admin UI toggle (new - for nadalpiantini@gmail.com only)
+  const adminToggle =
+    cachedDevSettings?.useLocalLLM === true &&
+    cachedDevSettings?.adminEmail?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+
+  const result = envResult || adminToggle;
 
   if (result) {
     logger.debug('🔓 DEV_LOCAL mode ACTIVE', {
       env: import.meta.env.MODE,
-      flag: envFlag,
-      dev: isDev,
+      envFlag,
+      adminToggle,
+      source: adminToggle ? 'admin-ui' : 'env-vars',
     });
   }
 
@@ -79,6 +115,12 @@ export function canUseLocalForOperation(operation: OperationType): boolean {
 // 🧠 MODEL SELECTION (Local)
 // ═══════════════════════════════════════════════════════════════════
 export function getLocalModelForAgent(agentName: string): string {
+  // Priority 1: Admin UI settings
+  if (cachedDevSettings?.localLLMModel && cachedDevSettings?.adminEmail?.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+    return cachedDevSettings.localLLMModel;
+  }
+
+  // Priority 2: Environment variables (per-agent)
   const models = {
     planner: import.meta.env.VITE_OLLAMA_LOCAL_MODEL_PLANNER || 'qwen2.5-coder:7b',
     navigator: import.meta.env.VITE_OLLAMA_LOCAL_MODEL_NAVIGATOR || 'qwen2.5-coder:14b',
@@ -87,6 +129,20 @@ export function getLocalModelForAgent(agentName: string): string {
 
   const agentKey = agentName.toLowerCase();
   return models[agentKey as keyof typeof models] || models.planner;
+}
+
+// Get local LLM base URL (from UI settings or env vars)
+export function getLocalLLMBaseUrl(): string {
+  // Priority 1: Admin UI settings
+  if (
+    cachedDevSettings?.localLLMBaseUrl &&
+    cachedDevSettings?.adminEmail?.toLowerCase() === ADMIN_EMAIL.toLowerCase()
+  ) {
+    return cachedDevSettings.localLLMBaseUrl;
+  }
+
+  // Priority 2: Environment variable
+  return import.meta.env.VITE_OLLAMA_LOCAL_BASE_URL || 'http://localhost:11434';
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -147,8 +203,8 @@ export function routeLLMRequest(context: RoutingContext): RoutedConfig {
 
   // ✅ ALL GUARDS PASSED - Route to Local
   const localModel = getLocalModelForAgent(context.agentName);
-  const baseUrl = import.meta.env.VITE_OLLAMA_LOCAL_BASE_URL || 'http://localhost:11434';
-  const adapter = import.meta.env.VITE_OLLAMA_LOCAL_ADAPTER || 'fj-dev-local';
+  const baseUrl = getLocalLLMBaseUrl();
+  const adapter = import.meta.env.VITE_OLLAMA_LOCAL_ADAPTER || 'fj-admin-local';
 
   logger.info('🏠 Routing to LOCAL Ollama', {
     operation: context.operation,

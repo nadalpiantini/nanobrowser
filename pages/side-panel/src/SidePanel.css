@@ -93,6 +93,52 @@ code {
   opacity: 1;
 }
 
+/* FreeJack Glassmorphism Overlay for Navigation Elements */
+.header-icon {
+  position: relative;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.header-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(45, 212, 191, 0.3), rgba(233, 30, 140, 0.3));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.header-icon:hover::before {
+  opacity: 1;
+}
+
+/* Glassmorphism Vignette Overlay for numbered/indexed elements */
+.freejack-vignette {
+  position: relative;
+}
+
+.freejack-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(45, 212, 191, 0.15) 70%,
+    rgba(233, 30, 140, 0.2) 100%
+  );
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  pointer-events: none;
+  z-index: 1;
+}
+
 .send-button {
   color: #19C2FF;
   cursor: pointer;

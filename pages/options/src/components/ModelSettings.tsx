@@ -95,7 +95,6 @@ export const ModelSettings = ({ isDarkMode = false }: ModelSettingsProps) => {
     const loadProviders = async () => {
       try {
         const allProviders = await llmProviderStore.getAllProviders();
-        console.log('allProviders', allProviders);
 
         // Track which providers are from storage
         const fromStorage = new Set(Object.keys(allProviders));
@@ -561,8 +560,6 @@ export const ModelSettings = ({ isDarkMode = false }: ModelSettingsProps) => {
     // modelValue will be in format "provider>model"
     const [provider, model] = modelValue.split('>');
 
-    console.log(`[handleModelChange] Setting ${agentName} model: provider=${provider}, model=${model}`);
-
     // Set parameters based on provider type
     const newParameters = getDefaultAgentModelParams(provider, agentName);
 
@@ -583,7 +580,7 @@ export const ModelSettings = ({ isDarkMode = false }: ModelSettingsProps) => {
 
         // For Azure, verify the model is in the deployment names list
         if (providerConfig && providerConfig.type === ProviderTypeEnum.AzureOpenAI) {
-          console.log(`[handleModelChange] Azure model selected: ${model}`);
+          // Azure model selected - no action needed
         }
 
         // Reset reasoning effort if switching models
@@ -1197,7 +1194,6 @@ export const ModelSettings = ({ isDarkMode = false }: ModelSettingsProps) => {
                             placeholder={t('options_models_providers_custom_name_placeholder')}
                             value={providerConfig.name || ''}
                             onChange={e => {
-                              console.log('Name input changed:', e.target.value);
                               handleNameChange(providerId, e.target.value);
                             }}
                             className={`flex-1 rounded-md border p-2 text-sm ${

@@ -3,15 +3,17 @@ import '@src/Options.css';
 import { Button } from '@extension/ui';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
 import { t } from '@extension/i18n';
-import { FiSettings, FiCpu, FiShield, FiTrendingUp, FiHelpCircle } from 'react-icons/fi';
+import { FiSettings, FiCpu, FiShield, FiTrendingUp, FiHelpCircle, FiTool } from 'react-icons/fi';
 import { GeneralSettings } from './components/GeneralSettings';
 import { ModelSettings } from './components/ModelSettings';
 import { FirewallSettings } from './components/FirewallSettings';
 import { AnalyticsSettings } from './components/AnalyticsSettings';
+import { DevSettings } from './components/DevSettings';
+import { devSettingsStore, ADMIN_EMAIL } from '@extension/storage';
 
-type TabTypes = 'general' | 'models' | 'firewall' | 'analytics' | 'help';
+type TabTypes = 'general' | 'models' | 'firewall' | 'analytics' | 'dev' | 'help';
 
-const TABS: { id: TabTypes; icon: React.ComponentType<{ className?: string }>; label: string }[] = [
+const BASE_TABS: { id: TabTypes; icon: React.ComponentType<{ className?: string }>; label: string }[] = [
   { id: 'general', icon: FiSettings, label: t('options_tabs_general') },
   { id: 'models', icon: FiCpu, label: t('options_tabs_models') },
   { id: 'firewall', icon: FiShield, label: t('options_tabs_firewall') },
@@ -19,9 +21,21 @@ const TABS: { id: TabTypes; icon: React.ComponentType<{ className?: string }>; l
   { id: 'help', icon: FiHelpCircle, label: t('options_tabs_help') },
 ];
 
+// Dev tab - only shown to admin
+const DEV_TAB = { id: 'dev' as TabTypes, icon: FiTool, label: '🔧 Dev Tools' };
+
 const Options = () => {
   const [activeTab, setActiveTab] = useState<TabTypes>('models');
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Check admin status on mount
+  useEffect(() => {
+    devSettingsStore.isAdmin().then(setIsAdmin);
+  }, []);
+
+  // Build tabs list - include dev tab only for admin
+  const TABS = isAdmin ? [...BASE_TABS.slice(0, 4), DEV_TAB, BASE_TABS[4]] : BASE_TABS;
 
   // Check for dark mode preference
   useEffect(() => {
@@ -47,13 +61,15 @@ const Options = () => {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'general':
-        return <GeneralSettings isDarkMode={isDarkMode} />;
+        return <GeneralSettings isDarkMode={isDarkMode} onAdminStatusChange={setIsAdmin} />;
       case 'models':
         return <ModelSettings isDarkMode={isDarkMode} />;
       case 'firewall':
         return <FirewallSettings isDarkMode={isDarkMode} />;
       case 'analytics':
         return <AnalyticsSettings isDarkMode={isDarkMode} />;
+      case 'dev':
+        return isAdmin ? <DevSettings isDarkMode={isDarkMode} /> : null;
       default:
         return null;
     }
