@@ -50,10 +50,10 @@ Freejack is an open-source Chrome extension that brings the power of AI agents t
 3. Click the extension icon and start automating!
 4. Choose from pre-built templates or create custom workflows
 
-**Join thousands of users** who are already saving hours of manual work with Freejack. Whether you're a developer, researcher, or business professional, Freejack adapts to your needs and grows with your requirements.
+Whether you're a developer, researcher, or business professional, Freejack adapts to your needs and grows with your requirements.
 
 **Questions? Issues? Feature Requests?**
-Visit our GitHub repository for documentation, tutorials, and community support. We're constantly improving Freejack based on user feedback.
+We're constantly improving Freejack based on user feedback. Contact us at support@getfreejack.com
 
 ---
 
@@ -64,10 +64,10 @@ Productivity
 automation, AI, web scraping, forms, data extraction, browser assistant, productivity, automation tools, no-code, workflow automation
 
 ### Privacy Policy Summary
-Freejack processes all data locally in your browser. We only collect minimal usage statistics to improve the extension. No browsing history, personal data, or form information is stored or transmitted without your explicit consent. Full privacy policy available at: https://github.com/extension/freejack/blob/main/PRIVACY.md
+Freejack processes all data locally in your browser. We only collect minimal usage statistics to improve the extension. No browsing history, personal data, or form information is stored or transmitted without your explicit consent. Full privacy policy available at: https://getfreejack.com/privacy
 
 ### Support Website
-https://github.com/extension/freejack
+https://getfreejack.com
 
 ### Version Information
 **Current Version**: 0.1.13
