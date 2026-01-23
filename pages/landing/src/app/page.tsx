@@ -36,18 +36,20 @@ export default function Home() {
 
         {/* CTA */}
         <div className="mt-16 flex flex-col gap-4 sm:flex-row">
-          <button
-            type="button"
-            className="group relative overflow-hidden rounded-full bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-crimson px-8 py-4 text-lg font-bold transition-all hover:scale-105">
+          <a
+            href="https://chromewebstore.google.com/detail/freejack-ai-web-agent/YOUR_EXTENSION_ID"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative overflow-hidden rounded-full bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-crimson px-8 py-4 text-center text-lg font-bold transition-all hover:scale-105">
             <span className="relative z-10">Get Started</span>
             <div className="absolute inset-0 bg-gradient-to-r from-neon-crimson via-neon-magenta to-neon-cyan opacity-0 transition-opacity group-hover:opacity-100" />
-          </button>
+          </a>
 
-          <button
-            type="button"
-            className="glass-morphism neon-border rounded-full px-8 py-4 text-lg font-bold transition-all hover:bg-white/10">
+          <a
+            href="#features"
+            className="glass-morphism neon-border rounded-full px-8 py-4 text-center text-lg font-bold transition-all hover:bg-white/10">
             Learn More
-          </button>
+          </a>
         </div>
 
         {/* Scroll indicator */}
@@ -59,7 +61,7 @@ export default function Home() {
       </section>
 
       {/* Features Section - Simplified */}
-      <section className="relative px-4 py-20">
+      <section id="features" className="relative px-4 py-20">
         <div className="mx-auto max-w-5xl">
           {/* Section Title */}
           <h2 className="mb-16 bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-crimson bg-clip-text text-center text-3xl font-bold text-transparent md:text-4xl">
@@ -149,7 +151,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer - Minimal */}
+      {/* Footer */}
       <footer className="relative py-16 text-center font-mono text-sm text-gray-500">
         <p>Built for the future. Available now.</p>
         <p className="mt-2">© 2026 Freejack</p>
