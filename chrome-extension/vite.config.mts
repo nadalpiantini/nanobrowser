@@ -20,9 +20,20 @@ export default defineConfig(({ mode }) => {
         '@root': rootDir,
         '@src': srcDir,
         '@assets': resolve(srcDir, 'assets'),
+        // Stub out Node.js-only modules that puppeteer-core transitively imports
+        '@puppeteer/browsers': resolve(rootDir, 'src/stubs/empty.ts'),
+        'proxy-agent': resolve(rootDir, 'src/stubs/empty.ts'),
       },
       conditions: ['browser', 'module', 'import', 'default'],
       mainFields: ['browser', 'module', 'main'],
+    },
+    optimizeDeps: {
+      exclude: [
+        '@puppeteer/browsers',
+        'chromium-bidi',
+        'proxy-agent',
+        'basic-ftp',
+      ],
     },
     server: {
       // Restrict CORS to only allow localhost
@@ -61,6 +72,11 @@ export default defineConfig(({ mode }) => {
           'chrome',
           // Exclude chromium-bidi - extension uses CDP protocol, not BiDi
           /^chromium-bidi/,
+          // Exclude @puppeteer/browsers - uses Node.js modules not available in browser
+          /^@puppeteer\/browsers/,
+          // Exclude Node.js-only dependencies that get pulled in transitively
+          /^basic-ftp/,
+          /^proxy-agent/,
         ],
         output: {
           globals: {
