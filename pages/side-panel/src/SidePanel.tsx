@@ -1003,7 +1003,7 @@ const SidePanel = () => {
     <div>
       <div
         className={`flex h-screen flex-col ${isDarkMode ? 'bg-slate-900' : "bg-[url('/bg.jpg')] bg-cover bg-no-repeat"} overflow-hidden border ${isDarkMode ? 'border-sky-800' : 'border-[rgb(186,230,253)]'} rounded-2xl`}>
-        <header className="header relative">
+        <header className="header relative freejack-vignette">
           <div className="header-logo">
             {showHistory ? (
               <button
@@ -1092,7 +1092,7 @@ const SidePanel = () => {
               <div
                 className={`flex flex-1 items-center justify-center p-8 ${isDarkMode ? 'text-sky-300' : 'text-sky-600'}`}>
                 <div className="max-w-md text-center">
-                  <img src="/icon-128.png" alt="Freejack Logo" className="mx-auto mb-4 size-12" />
+                  <img src="/icon-128.png" alt="Freejack Logo" className="mx-auto mb-4 w-60 h-60" />
                   <h3 className={`mb-2 text-lg font-semibold ${isDarkMode ? 'text-sky-200' : 'text-sky-700'}`}>
                     {t('welcome_title')}
                   </h3>
