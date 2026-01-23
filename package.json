@@ -16,6 +16,7 @@
     "clean:install": "pnpm clean:node_modules && pnpm install --frozen-lockfile",
     "build": "pnpm clean:bundle && turbo ready && turbo build",
     "zip": "pnpm build && pnpm -F zipper zip",
+    "start": "node scripts/freejack.js",
     "dev": "node scripts/dev-guard.js",
     "dev:landing": "node scripts/dev-guard.js landing && pnpm -F @freejack/landing dev",
     "dev:extension": "node scripts/dev-guard.js extension && pnpm -F chrome-extension dev",
