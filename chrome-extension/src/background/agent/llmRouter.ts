@@ -122,7 +122,7 @@ export function routeLLMRequest(context: RoutingContext): RoutedConfig {
 
   // 🚨 GUARD 2: Operation validation
   if (!canUseLocalForOperation(context.operation)) {
-    logger.warn('⚠️ Operation NOT ALLOWED for local', {
+    logger.warning('⚠️ Operation NOT ALLOWED for local', {
       operation: context.operation,
       allowed: Array.from(ALLOWED_LOCAL_OPS),
     });
@@ -160,7 +160,7 @@ export function routeLLMRequest(context: RoutingContext): RoutedConfig {
   return {
     useLocal: true,
     providerConfig: {
-      provider: ProviderTypeEnum.Ollama,
+      type: ProviderTypeEnum.Ollama,
       baseUrl,
       apiKey: adapter, // Loopback adapter (Ollama ignores this)
     },

@@ -1,0 +1,10 @@
+{
+  "name": "Freejack: AI Web Agent",
+  "version": "0.1.13",
+  "description": "Automate web tasks with AI! Freejack is an open-source browser extension that lets you extract data, fill forms, and navigate websites using natural language.",
+  "category": "Productivity",
+  "languages": ["en", "es", "zh_CN"],
+  "privacy_policy": "https://github.com/extension/freejack/blob/main/PRIVACY.md",
+  "website": "https://github.com/extension/freejack",
+  "support": "https://github.com/extension/freejack/issues"
+}

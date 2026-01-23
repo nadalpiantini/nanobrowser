@@ -55,7 +55,7 @@ export function assertDevOnly(context: string): void {
  */
 export function warnDevUsage(context: string): void {
   if (isDevLocalMode()) {
-    logger.warn(`🔶 DEV_LOCAL: ${context}`, getDevContext());
+    logger.warning(`🔶 DEV_LOCAL: ${context}`, getDevContext());
   }
 }
 
@@ -147,7 +147,7 @@ export function auditBuildSafety(): { safe: boolean; issues: string[] } {
   const safe = issues.length === 0;
 
   if (!safe) {
-    logger.warn('⚠️ Build safety audit FAILED', { issues });
+    logger.warning('⚠️ Build safety audit FAILED', { issues });
   } else {
     logger.info('✅ Build safety audit PASSED');
   }

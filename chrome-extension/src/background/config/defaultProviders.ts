@@ -1,4 +1,4 @@
-import { llmProviderStore, getDefaultProviderConfig, ProviderTypeEnum } from './llmProviders';
+import { llmProviderStore, getDefaultProviderConfig, ProviderTypeEnum } from '@extension/storage';
 
 // Función para inicializar DeepSeek como proveedor predeterminado
 export async function initializeDefaultProviders() {
