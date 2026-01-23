@@ -83,3 +83,4 @@ INICIO_RAPIDO.md
 **/plannerIntegration.example.ts
 **/examples/devLocalUsage.ts
 **/examples/plannerIntegration.example.ts
+.vercel

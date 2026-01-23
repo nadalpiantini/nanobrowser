@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pnpm -F @freejack/landing build",
+  "outputDirectory": "pages/landing/.next",
+  "installCommand": "pnpm install",
+  "framework": "nextjs"
+}
