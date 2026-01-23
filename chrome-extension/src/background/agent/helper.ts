@@ -8,6 +8,8 @@ import { ChatCerebras } from '@langchain/cerebras';
 import type { BaseChatModel } from '@langchain/core/language_models/chat_models';
 import { ChatOllama } from '@langchain/ollama';
 import { ChatDeepSeek } from '@langchain/deepseek';
+import { routeLLMRequest, type RoutingContext, OperationType, assertNoLocalConfigInProd } from './llmRouter';
+import { assertDevOnly, warnDevUsage } from './devGuards';
 
 const maxTokens = 1024 * 4;
 
@@ -240,6 +242,71 @@ function createAzureChatModel(providerConfig: ProviderConfig, modelConfig: Model
   // console.log('[createChatModel] Azure args passed to AzureChatOpenAI:', args);
   return new AzureChatOpenAI(args);
 }
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🔀 DEV_LOCAL ROUTING SUPPORT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+/**
+ * Create a chat model with optional DEV_LOCAL routing
+ * This is the NEW recommended way to create LLM instances
+ *
+ * @param providerConfig - Provider configuration (Cloud)
+ * @param modelConfig - Model configuration (Cloud)
+ * @param routingContext - Optional routing context for DEV_LOCAL
+ * @returns BaseChatModel instance (Cloud or Local based on routing)
+ */
+export function createChatModelWithRouting(
+  providerConfig: ProviderConfig,
+  modelConfig: ModelConfig,
+  routingContext?: RoutingContext,
+): BaseChatModel {
+  // 🚨 SECURITY: Assert no local config in production build
+  assertNoLocalConfigInProd();
+
+  // If no routing context, use cloud (backward compatible)
+  if (!routingContext) {
+    return createChatModel(providerConfig, modelConfig);
+  }
+
+  // Route the request (Cloud or Local)
+  const routed = routeLLMRequest(routingContext);
+
+  if (routed.useLocal) {
+    // 🏠 LOCAL: Use local Ollama with routed config
+    warnDevUsage(`Using LOCAL Ollama for ${routingContext.operation}`);
+
+    const localProviderConfig: ProviderConfig = {
+      ...providerConfig,
+      ...routed.providerConfig,
+    } as ProviderConfig;
+
+    const localModelConfig: ModelConfig = {
+      ...modelConfig,
+      ...routed.modelConfig,
+    } as ModelConfig;
+
+    console.info('🏠 [DEV_LOCAL]', routed.rationale, {
+      agent: routingContext.agentName,
+      model: localModelConfig.modelName,
+      baseUrl: localProviderConfig.baseUrl,
+    });
+
+    return createChatModel(localProviderConfig, localModelConfig);
+  }
+
+  // 🌩️ CLOUD: Use cloud LLM (default)
+  console.debug('🌩️ [CLOUD]', routed.rationale, {
+    agent: routingContext.agentName,
+    model: modelConfig.modelName,
+  });
+
+  return createChatModel(providerConfig, modelConfig);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🔧 ORIGINAL FUNCTION (Backward Compatible)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 // create a chat model based on the agent name, the model name and provider
 export function createChatModel(providerConfig: ProviderConfig, modelConfig: ModelConfig): BaseChatModel {

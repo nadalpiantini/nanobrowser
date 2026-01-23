@@ -68,3 +68,15 @@ chrome-extension/public/manifest.json
 # Nanobrowser specific
 .nanobrowser
 *.py
+
+# FreeJack DEV_LOCAL (NEVER COMMIT)
+DEV_CONTRACT.md
+DEV_LOCAL_README.md
+DEV_LOCAL_*.md
+FREEJACK_DEV_LOCAL_*.md
+INICIO_RAPIDO.md
+.env.local
+**/devLocalUsage.ts
+**/plannerIntegration.example.ts
+**/examples/devLocalUsage.ts
+**/examples/plannerIntegration.example.ts
