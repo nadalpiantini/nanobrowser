@@ -1,0 +1,5 @@
+# E2E Testing Directory
+
+This directory contains end-to-end tests for FreeJack extension.
+
+See e2e/README.md for documentation.

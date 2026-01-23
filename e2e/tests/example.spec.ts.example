@@ -1,0 +1,187 @@
+/**
+ * Example E2E Test - Template for creating new tests
+ *
+ * This file shows the basic structure for E2E tests in FreeJack.
+ * Copy this template when creating new test files.
+ */
+
+import { test, expect } from '../fixtures/extension';
+import { ExtensionHelpers } from '../helpers/extension-helpers';
+
+test.describe('Example Feature Tests', () => {
+  // Setup before each test - ensures clean state
+  test.beforeEach(async ({ context, extensionId }) => {
+    const helpers = new ExtensionHelpers(context, extensionId);
+
+    // Clear storage for clean state
+    await helpers.clearStorage();
+
+    // Set up any required configuration
+    await helpers.setStorage({
+      'llm-providers': {
+        openai: {
+          type: 'openai',
+          apiKey: 'sk-test-key',
+          displayName: 'OpenAI',
+        },
+      },
+    });
+  });
+
+  test('example: should open options page', async ({ context, extensionId }) => {
+    // Create helpers instance
+    const helpers = new ExtensionHelpers(context, extensionId);
+
+    // Open the options page
+    const optionsPage = await helpers.openOptionsPage();
+
+    // Verify page loaded
+    await expect(optionsPage.locator('body')).toBeVisible();
+
+    // Check for specific element
+    await expect(optionsPage.locator('text=Models')).toBeVisible({ timeout: 5000 });
+
+    // Clean up
+    await optionsPage.close();
+  });
+
+  test('example: should interact with storage', async ({ context, extensionId }) => {
+    const helpers = new ExtensionHelpers(context, extensionId);
+
+    // Write to storage
+    await helpers.setStorage({
+      'test-key': 'test-value',
+      'nested-data': {
+        count: 42,
+        enabled: true,
+      },
+    });
+
+    // Read from storage
+    const data = await helpers.getStorage(['test-key', 'nested-data']);
+
+    // Verify data
+    expect(data['test-key']).toBe('test-value');
+    expect(data['nested-data'].count).toBe(42);
+    expect(data['nested-data'].enabled).toBe(true);
+  });
+
+  test('example: should open side panel and interact', async ({ context, extensionId }) => {
+    const helpers = new ExtensionHelpers(context, extensionId);
+
+    // Open side panel
+    const sidePanelPage = await helpers.openSidePanel();
+
+    // Find chat input
+    const chatInput = sidePanelPage
+      .locator('textarea')
+      .or(sidePanelPage.locator('input[type="text"]'));
+
+    // Wait for it to be visible
+    await chatInput.first().waitFor({ state: 'visible', timeout: 10000 });
+
+    // Type a message
+    await chatInput.first().fill('Hello, test message!');
+
+    // Verify input value
+    const inputValue = await chatInput.first().inputValue();
+    expect(inputValue).toBe('Hello, test message!');
+
+    // Clean up
+    await sidePanelPage.close();
+  });
+
+  test('example: should handle multiple pages', async ({ context, extensionId }) => {
+    const helpers = new ExtensionHelpers(context, extensionId);
+
+    // Open multiple extension pages
+    const optionsPage = await helpers.openOptionsPage();
+    const sidePanelPage = await helpers.openSidePanel();
+
+    // Verify both are open
+    await expect(optionsPage.locator('body')).toBeVisible();
+    await expect(sidePanelPage.locator('body')).toBeVisible();
+
+    // URLs should be different
+    expect(optionsPage.url()).toContain('options/index.html');
+    expect(sidePanelPage.url()).toContain('side-panel/index.html');
+
+    // Clean up
+    await optionsPage.close();
+    await sidePanelPage.close();
+  });
+
+  test('example: should test error states', async ({ context, extensionId }) => {
+    const helpers = new ExtensionHelpers(context, extensionId);
+
+    // Clear all configuration to trigger error state
+    await helpers.clearStorage();
+
+    const sidePanelPage = await helpers.openSidePanel();
+
+    // Should show configuration prompt or error message
+    const bodyText = await sidePanelPage.locator('body').textContent();
+
+    // Verify some content is shown (exact content may vary)
+    expect(bodyText).toBeTruthy();
+    expect(bodyText!.length).toBeGreaterThan(0);
+
+    await sidePanelPage.close();
+  });
+});
+
+// Example of testing with real navigation
+test.describe('Example Browser Navigation Tests', () => {
+  test('example: should navigate to external page', async ({ context, extensionId }) => {
+    const helpers = new ExtensionHelpers(context, extensionId);
+
+    // Create a new page
+    const testPage = await context.newPage();
+
+    // Navigate to a test page
+    await testPage.goto('https://example.com');
+
+    // Verify navigation
+    await expect(testPage).toHaveURL('https://example.com/');
+
+    // Interact with page elements
+    const heading = await testPage.locator('h1').textContent();
+    expect(heading).toContain('Example');
+
+    // Clean up
+    await testPage.close();
+  });
+});
+
+// Example of async/await patterns
+test.describe('Example Async Patterns', () => {
+  test('example: parallel operations', async ({ context, extensionId }) => {
+    const helpers = new ExtensionHelpers(context, extensionId);
+
+    // Run multiple storage operations in parallel
+    await Promise.all([
+      helpers.setStorage({ 'key1': 'value1' }),
+      helpers.setStorage({ 'key2': 'value2' }),
+      helpers.setStorage({ 'key3': 'value3' }),
+    ]);
+
+    // Verify all were set
+    const storage = await helpers.getStorage(['key1', 'key2', 'key3']);
+    expect(storage['key1']).toBe('value1');
+    expect(storage['key2']).toBe('value2');
+    expect(storage['key3']).toBe('value3');
+  });
+
+  test('example: sequential operations', async ({ context, extensionId }) => {
+    const helpers = new ExtensionHelpers(context, extensionId);
+
+    // Sequential operations (one after another)
+    await helpers.setStorage({ counter: 0 });
+
+    for (let i = 1; i <= 5; i++) {
+      await helpers.setStorage({ counter: i });
+      const storage = await helpers.getStorage(['counter']);
+      expect(storage['counter']).toBe(i);
+    }
+  });
+});

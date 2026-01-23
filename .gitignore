@@ -54,6 +54,9 @@ pnpm-debug.log*
 coverage/
 .nyc_output/
 **/coverage
+playwright-report/
+test-results/
+playwright/.cache/
 
 # Misc
 .cache/
